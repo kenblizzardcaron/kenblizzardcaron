@@ -35,18 +35,18 @@ a:hover {
 .react-toggle {
   z-index: 500;
   position: absolute;
-  right: 1rem;
-  top: 1rem;
+  left: 1rem;
+  bottom: 1rem;
 }
 
 .react-toggle-track-check span {
-  top: 7px;
+  top: 6px;
   left: 0px;
   position: relative;
 }
 
 .react-toggle-track-x span {
-  top: 7px;
+  top: 6px;
   right: 4px;
   position: relative;
 }
