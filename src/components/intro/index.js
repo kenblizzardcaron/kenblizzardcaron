@@ -41,10 +41,7 @@ export default () => (
       {" "}
       things
     </OutboundLink>{" "}
-    recently. I'm looking to switch back into contract work but I <em>
-      could
-    </em>{" "}
-    consider a full-time role if it's an excellent fit. I'm guessing you're here
+    recently. I'm looking to work on something exciting with a great team. I'm guessing you're here
     to take a look at my{" "}
     <OutboundLink
       target="_blank"
