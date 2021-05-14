@@ -5,14 +5,19 @@ require(`dotenv`).config({
 const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE
 
 const description = "I’m a dedicated Austin-based developer. I have ten years of professional programming experience designing and engineering web apps, video games, and wearable apps. I love to code. When I’m not learning a new framework you can often find me camping with my wife and dog, discovering new vegan restaurants, roasting coffee, or training for a race.";
-
+const fullName = 'Ken Blizzard-Caron';
 
 module.exports = {
   siteMetadata: {
-    siteTitle: `Ken Blizzard-Caron`,
-    siteTitleAlt: `Ken Blizzard-Caron`,
+    author: fullName,
+    description,
+    siteDescription: description,
+    siteHeadline: fullName,
+    siteImage: '/img/kenblizzardcaron.png',
+    siteLanguage: 'en-US',
+    siteTitle: fullName,
+    siteTitleAlt: fullName,
     siteUrl: `https://kenblizzardcaron.com`,
-    description
   },
   plugins: [
     {
@@ -31,8 +36,16 @@ module.exports = {
         // ],
         externalLinks: [
           {
+            name: `GitHub`,
+            url: `https://github.com/kenblizzardcaron`
+          },
+          {
             name: `LinkedIn`,
-            url: `https://www.linkedin.com/in/kenblizzardcaron/`,
+            url: `https://www.linkedin.com/in/kenblizzardcaron`,
+          },
+          {
+            name: `Resume`,
+            url: `/pdf/KenBlizzard-Caron.pdf`
           }
         ],
       },
@@ -56,7 +69,7 @@ module.exports = {
         display: `standalone`,
         icons: [
           {
-            src: `/img/favicon-16x16.png`,
+            src: `/img/favicon-16x16.jpg`,
             sizes: `16x16`,
             type: `image/png`,
           },
