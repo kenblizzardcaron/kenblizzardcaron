@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
+import { Box, jsx } from "theme-ui";
 import { Link } from "gatsby";
 import Layout from "./layout";
 import Title from "./title";
@@ -48,23 +48,32 @@ const Homepage = ({ posts }: PostsProps) => {
           <img
             src="/img/kenblizzardcaron.jpg"
             sx={{
-              borderColor: "secondary",
+              borderColor: "primary",
               borderRadius: "full",
               borderStyle: "solid",
-              borderWidth: '0.2rem',
+              borderWidth: 3,
+              boxShadow: ({ colors, space }) =>
+                `0 0 ${space[4]} ${colors.profileShadow}`,
               height: "6rem",
               marginBottom: [2, 3],
               width: "6rem",
             }}
           />
         </div>
-
-        <Hero />
+        <Box
+          sx={{
+            fontFamily: "Newsreader",
+            fontWeight: 600,
+            textShadow: ({ colors }) => `1px 1px ${colors.shadow}`,
+          }}
+        >
+          <Hero />
+        </Box>
       </section>
-      {/* <Title text="Latest Posts">
-        <Link to={replaceSlashes(`/${basePath}/${blogPath}`)}>Read all posts</Link>
+      <Title text="Blog">
+        <Link to={replaceSlashes(`/${basePath}/${blogPath}`)}>All posts</Link>
       </Title>
-      <Listing posts={posts} showTags={false} /> */}
+      <Listing posts={posts} showTags={false} />
       <List sx={{ variant: `section_bottom` }}>
         <Bottom />
       </List>
