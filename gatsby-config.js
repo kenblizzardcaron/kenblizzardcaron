@@ -21,7 +21,6 @@ module.exports = {
     siteUrl: `https://kenblizzardcaron.com`,
   },
   plugins: [
-    `gatsby-plugin-gatsby-cloud`,
     `gatsby-plugin-netlify`,
     `gatsby-plugin-offline`,
     `gatsby-plugin-sitemap`,
@@ -59,7 +58,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: process.env.GOOGLE_ANALYTICS_ID,
+        trackingId: `UA-140658914-1`,
       },
     },
     {
