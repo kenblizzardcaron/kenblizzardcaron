@@ -23,6 +23,7 @@ module.exports = {
   plugins: [
     `gatsby-plugin-netlify`,
     `gatsby-plugin-offline`,
+    `gatsby-plugin-sharp`,
     `gatsby-plugin-sitemap`,
     {
       resolve: `@lekoarts/gatsby-theme-minimal-blog`,
@@ -71,6 +72,7 @@ module.exports = {
         background_color: `#fff`,
         theme_color: `#6B46C1`,
         display: `standalone`,
+        icon: `src/icon/icon.png`,
         icons: [
           {
             src: `/img/favicon-16x16.jpg`,
