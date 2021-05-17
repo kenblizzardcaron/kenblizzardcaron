@@ -21,7 +21,6 @@ module.exports = {
     siteUrl: `https://kenblizzardcaron.com`,
   },
   plugins: [
-    `gatsby-plugin-netlify`,
     `gatsby-plugin-offline`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-sitemap`,
@@ -53,6 +52,7 @@ module.exports = {
             url: `/pdf/KenBlizzard-Caron.pdf`,
           },
         ],
+        feed: false, // TODO reenable this, don't want to hold up gatsby v3 over this
         formatString: "MMM DD, YYYY"
       },
     },
