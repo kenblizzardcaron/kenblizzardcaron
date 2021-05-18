@@ -8,6 +8,18 @@ const description =
   "I’m a dedicated Austin-based developer. I have ten years of professional programming experience designing and engineering web apps, video games, and wearable apps. I love to code. When I’m not learning a new framework you can often find me camping with my wife and dog, discovering new vegan restaurants, roasting coffee, or training for a race.";
 const fullName = "Ken Blizzard-Caron";
 
+const remarkImages = [
+  {
+    resolve: `gatsby-remark-images`,
+    options: {
+      linkImagesToOriginal: false,
+      maxWidth: 600,
+      quality: 90,
+      showCaptions: true
+    },
+  },
+];
+
 module.exports = {
   siteMetadata: {
     author: fullName,
@@ -24,6 +36,14 @@ module.exports = {
     `gatsby-plugin-offline`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        extensions: [`.mdx`, `.md`],
+        gatsbyRemarkPlugins: remarkImages,
+        plugins: remarkImages
+      },
+    },
     {
       resolve: `@lekoarts/gatsby-theme-minimal-blog`,
       // See the theme's README for all available options
@@ -53,7 +73,8 @@ module.exports = {
           },
         ],
         feed: false, // TODO reenable this, don't want to hold up gatsby v3 over this
-        formatString: "MMM DD, YYYY"
+        formatString: "MMM DD, YYYY",
+        mdx: false
       },
     },
     {
