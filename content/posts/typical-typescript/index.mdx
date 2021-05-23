@@ -1,0 +1,121 @@
+---
+title: Typical TypeScript with React
+date: 2021-05-23
+tags:
+  - React
+  - Tech
+  - TypeScript
+---
+
+_**tl;dr** This is a quick beginner post covering some of the most obvious uses of TypeScript in a React component._
+
+TypeScript has [steadily grown in popularity](https://postlight.com/insights/why-the-world-is-adopting-typescript) in the React community over the years. [Even inside Facebook](https://github.com/facebook/flow/issues/7365), usage of their competing [Flow.js](https://flow.org/) is on the decline. I have to admit that I'm glad TypeScript is winning this adoption battle, as I found debugging flow quite unpleasant. That isn't to say that TypeScript is perfect, but I've been slowly swayed from a skeptic to seeing it's benefits and even championing it's usage. If you work in a busy codebase with lots of external contributors, having your project be in TypeScript is almost like having tons of unit-tests built into your code. When you think about it, if you strongly type everything you, the analogy really holds up. It really helps you write code that catches edge-cases and avoid runtime errors.
+
+So whether you like it or not (and it's easier to learn to like it), TypeScript seems to be here to stay. So after you read through the [beginner documentation](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html), what does that mean for your React code? This is a quick post pointing out some typical TypeScript usage in a standard React application. It's aimed at someone converting their React code over from Flow.js or vanilla JavaScript, and wanting to know what they can expect. I may follow up this post, as there are various scenarios, but for now I'll focus on 3 fundamental things you'll find in most React TypeScript components.
+
+## Interfaces and types
+
+This first one is an obvious one, but one worth calling out. It's in the name after all. You may be familiar with the `prop-types` library. You can get rid of it with proper type safety on all of your props. So if you used to have:
+
+```js
+HeyThere.propTypes = {
+	name: PropTypes.string.required,
+	onChange: PropTypes.func.required
+};
+```
+
+You'll end up with this:
+
+```ts
+interface HeyThereProps {
+  name: string;
+  onChange: (value: string) => void;
+}
+```
+
+But hold up, you might say, why use interfaces over types? To that I'll say it comes down to personal preference, and much has been written on the matter already. I'll be the first to admit it seems like an unnecessary convolution, as both types and interfaces accomplish the same things, with some very nuanced differences. I wouldn't be surprised if eventually the decide to converge the two. I think the language would be better for it. My short answer is that everyone on my team prefers  types, so that's what I've gotten used to using. [Here's](https://twitter.com/wesbos/status/1362418379919937545) an interesting thread on Twitter that [Wes Bos](https://twitter.com/wesbos) started about what people prefer using.
+
+Anyway, back to the example. Pretty simple right? That's about as simplistic example as possible. There's only a couple things worth calling out here. The first is the use of `HeyThereProps` being a sibling to `HeyThere`, which is the actual function component in our example. This paradigm lets us share it around as freely as you export and import other things. The second if noting that simply declaring `onChange` as a function isn't good enough in TypeScript. You need to define the arguments and return types, which is a concept that just makes sense. But how do we actually consume the props in the component? That's where generics come into play.
+
+## Generics
+
+Generics are something I found myself using for a little while before truly grokking them (aside: that word was invented for [a book](https://en.wikipedia.org/wiki/Stranger_in_a_Strange_Land#Grok)). That's just a consequence of being thrown into an unfamiliar codebase with a very specific goal in mind. It can be easy to be satisfied that the code works, but as a programmer you should be constantly learning. Always ask yourself if you understand the code completely, and if you can spare a few minutes, always seek out the documentation on unfamiliar code. Sorry for that aside, let's get back to our topic.
+
+Let's say HeyThere is a function component. React has a type for that! Just import it alongside React like
+`import React, { FunctionComponent } from 'react';`. Or you can just call `React.FunctionComponent`. I like the former but that's just my opinion. So `FunctionComponent` is a generic type, which gets you halfway there. You need to tell it about your props to finish it. Here's what our component declaration will look like:
+
+```ts
+const HeyThere: FunctionComponent<HeyThereProps> = ({
+	name,
+	onChange
+}: HeyThereProps) => (
+```
+
+There's not much there but there's a few takeaways here.
+
+1. You can pass your generic's type with angle brackets `<>`.
+2. Don't be thrown by having to use `HeyThereProps` twice. That's just because I am using destructuring so I don't have to refer to `props.name` or `props.onChange`.
+3. Notice that you didn't have to supply a return value. This is because the `FunctionComponent` type already knows this.
+
+I haven't gotten to defining your own generics, which is definitely a little less common, and I think I'll save that for a follow-up post. Truth be told, I haven't encountered needing them too many times, as I generally work with generics that are already defined. However it definitely is a powerful and important part of the language.
+
+Let's make our component interactive. As a web developer, this is inevitable. You need input from the user, and they communicate with the app via inputs, be they text fields, checkboxes, forms, and so on. So most any developer quickly learns that they need to deal with [`events`](https://developer.mozilla.org/en-US/docs/Web/API/Event). It's good to read up on docs like this, even if you're a seasoned programmer. It's a pretty complex API, even if a normal developer only interacts with a portion of it. Thankfully React doesn't obfuscate this native API too badly. As you can see though, there's so many different types of events, so how do we deal with that in TypeScript?
+
+## Event types
+
+React comes preloaded with a ton of event types, thankfully. Some of the most common are:
+
+- `ChangeEvent`
+- `ClickEvent`
+- `FocusEvent`
+- `FormEvent`
+- `MouseEvent`
+
+For this example, let's use a `FormEvent`:
+
+```ts react-live
+const HeyThere: FunctionComponent<HeyThereProps> = ({
+  defaultName,
+  onChange,
+}: HeyThereProps) => {
+  const [name, setName] = React.useState(defaultName);
+
+  const handleChange = ({
+    target: { elements },
+  }: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setName(elements[0].value);
+  };
+
+  return (
+    <>
+      <form onSubmit={handleChange}>
+        <label for="name">
+          What's your name, friend?
+          <br />
+          <input id="name" />
+        </label>
+        <button>Send</button>
+      </form>
+      <p>Hey there, {name}!</p>
+    </>
+  );
+};
+
+render(
+  <HeyThere
+    defaultName="bud"
+    onChange={(name) => console.log(`Salut, ${name}!`)}
+  />
+);
+```
+
+How neat is that live React preview? Go ahead and edit it. I actually had to configure `react-live` (What makes there code-playgrounds possible) to take in TypeScript as it doesn't support it natively. Truth be told, the entire reason for this blog post was to play-around with [`react-live`](https://react-live.netlify.app/). Don't worry, eventually I'll get to more exciting components than Hello World type stuff. Anyway, let's dive into the example.
+
+This is a fairly simple component still, but it actually give the user the ability to change the greeting by submitting a form. You should notice `React.FormEvent<HTMLFormElement>` in our `handleChange` function. What we're doing in that function is extracting the value of the form value via destructuring and passing that along to our state as `name`. But that `FormEvent` generic knows the typings for everything on an event when you submit, all because we give it the [`HTMLFormElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement) interface. Bam! 💥
+
+_Of course, if you dislike destructuring, you can easily just use `event` directly._
+
+### To be continued?
+
+I'd say chime in and let me know what would be good to focus on in the future, but I haven't added any means for you to reply. Maybe I should add something like [Utterances](https://utteranc.es/) 🤔. Anyway there are a lot of things I could focus on in a follow-up post. Currently I'm thinking an overview of hooks, type assertions, and custom generics.
