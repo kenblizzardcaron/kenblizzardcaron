@@ -9,6 +9,7 @@ const theme = merge(tailwind, {
   useCustomProperties: true,
   colors: {
     background: colors.yellow[2],
+    codeBackground: colors.blue[2],
     divide: colors.gray[9],
     heading: colors.black,
     primary: colors.blue[7],
@@ -20,6 +21,7 @@ const theme = merge(tailwind, {
     modes: {
       dark: {
         background: colors.gray[9],
+        codeBackground: colors.blue[9],
         divide: colors.gray[1],
         heading: colors.white,
         muted: colors.gray[8],

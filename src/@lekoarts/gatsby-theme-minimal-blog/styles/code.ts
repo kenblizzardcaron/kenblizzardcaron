@@ -9,7 +9,7 @@ const code = {
   },
   "[data-name='live-preview']": {
     padding: (t: any) => `calc(${t.space[2]} + 10px) !important`,
-    backgroundColor: tint(`primary`, 0.7),
+    backgroundColor: 'codeBackground'
   },
   ".prism-code": {
     fontSize: [1, 1, 2],
