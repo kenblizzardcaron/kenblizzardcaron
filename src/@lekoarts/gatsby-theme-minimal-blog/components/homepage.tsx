@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { Box, jsx } from "theme-ui";
-import { Link } from "gatsby";
+import { Link, withPrefix } from "gatsby";
+import { StaticImage } from "gatsby-plugin-image"
 import Layout from "./layout";
 import Title from "./title";
 import Listing from "./listing";
@@ -45,9 +46,10 @@ const Homepage = ({ posts }: PostsProps) => {
         }}
       >
         <div sx={{ display: "flex", justifyContent: "center" }}>
-          <img
+          <StaticImage
             alt="Head shot of Ken Blizzard-Caron"
-            src="/img/kenblizzardcaron.jpg"
+            height={96}
+            src="./kenblizzardcaron.png"
             sx={{
               borderColor: "primary",
               borderRadius: "full",
@@ -57,8 +59,8 @@ const Homepage = ({ posts }: PostsProps) => {
                 `0 0 ${space[4]} ${colors.profileShadow}`,
               height: "6rem",
               marginBottom: [2, 3],
-              width: "6rem",
             }}
+            width={96}
           />
         </div>
         <Box

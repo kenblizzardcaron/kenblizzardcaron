@@ -2,8 +2,6 @@ require(`dotenv`).config({
   path: `.env`,
 });
 
-const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE;
-
 const description =
   "I’m a dedicated Austin-based developer. I have ten years of professional programming experience designing and engineering web apps, video games, and wearable apps. I love to code. When I’m not learning a new framework you can often find me camping with my wife and dog, discovering new vegan restaurants, roasting coffee, or training for a race.";
 const fullName = "Ken Blizzard-Caron";
@@ -15,7 +13,7 @@ const remarkImages = [
       linkImagesToOriginal: false,
       maxWidth: 600,
       quality: 90,
-      showCaptions: true
+      showCaptions: true,
     },
   },
 ];
@@ -33,6 +31,7 @@ module.exports = {
     siteUrl: `https://kenblizzardcaron.com`,
   },
   plugins: [
+    `gatsby-plugin-image`,
     `gatsby-plugin-offline`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-sitemap`,
@@ -41,7 +40,7 @@ module.exports = {
       options: {
         extensions: [`.mdx`, `.md`],
         gatsbyRemarkPlugins: remarkImages,
-        plugins: remarkImages
+        plugins: remarkImages,
       },
     },
     {
@@ -74,7 +73,7 @@ module.exports = {
         ],
         feed: false, // TODO reenable this, don't want to hold up gatsby v3 over this
         formatString: "MMM DD, YYYY",
-        mdx: false
+        mdx: false,
       },
     },
     {
@@ -87,7 +86,7 @@ module.exports = {
         background_color: `#fff`,
         theme_color: `#6B46C1`,
         display: `standalone`,
-        icon: `src/icon/icon.png`
+        icon: `src/icon/kenblizzardcaron.png`,
       },
     },
     {
@@ -103,12 +102,12 @@ module.exports = {
         ],
       },
     },
-    shouldAnalyseBundle && {
+    {
       resolve: `gatsby-plugin-webpack-bundle-analyser-v2`,
       options: {
         analyzerMode: `static`,
         reportFilename: `_bundle.html`,
-        openAnalyzer: false,
+        openAnalyzer: true,
       },
     },
   ].filter(Boolean),
