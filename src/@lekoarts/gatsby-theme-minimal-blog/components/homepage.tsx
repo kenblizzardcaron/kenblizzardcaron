@@ -46,6 +46,7 @@ const Homepage = ({ posts }: PostsProps) => {
       >
         <div sx={{ display: "flex", justifyContent: "center" }}>
           <img
+            alt="Head shot of Ken Blizzard-Caron"
             src="/img/kenblizzardcaron.jpg"
             sx={{
               borderColor: "primary",
@@ -62,6 +63,7 @@ const Homepage = ({ posts }: PostsProps) => {
         </div>
         <Box
           sx={{
+            fontDisplay: "swap",
             fontFamily: "Newsreader",
             fontWeight: 600,
             textShadow: ({ colors }) => `1px 1px ${colors.shadow}`,

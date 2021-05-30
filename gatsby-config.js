@@ -93,19 +93,7 @@ module.exports = {
         background_color: `#fff`,
         theme_color: `#6B46C1`,
         display: `standalone`,
-        icon: `src/icon/icon.png`,
-        icons: [
-          {
-            src: `/img/favicon-16x16.jpg`,
-            sizes: `16x16`,
-            type: `image/png`,
-          },
-          {
-            src: `/img/favicon-32x32.png`,
-            sizes: `32x32`,
-            type: `image/png`,
-          },
-        ],
+        icon: `src/icon/icon.png`
       },
     },
     {
@@ -119,12 +107,6 @@ module.exports = {
             file: "https://fonts.googleapis.com/css2?family=Newsreader",
           },
         ],
-      },
-    },
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: "UA-140658914-1",
       },
     },
     shouldAnalyseBundle && {
