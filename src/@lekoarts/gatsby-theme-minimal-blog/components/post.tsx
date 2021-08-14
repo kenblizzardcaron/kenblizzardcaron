@@ -55,7 +55,6 @@ const Post = ({ data: { post } }: PostProps) => (
         fontSize: [1, 1, 2],
       }}
     >
-      <time>{post.date}</time>
       {post.tags && (
         <React.Fragment>
           {` — `}

@@ -27,7 +27,6 @@ const BlogListItem = ({ post, showTags = true }: BlogListItemProps) => (
       {post.title}
     </TLink>
     <p sx={{ color: `text`, mt: 1, a: { color: `primary` }, fontSize: [1, 1, 2] }}>
-      <time>{post.date}</time>
       {post.tags && showTags && (
         <React.Fragment>
           {` — `}
