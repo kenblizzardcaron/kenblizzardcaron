@@ -21,6 +21,21 @@ module.exports = {
       resolve: `@lekoarts/gatsby-theme-minimal-blog`,
       // See the theme's README for all available options
       options: {
+        externalLinks: [
+          {
+            name: `GitHub`,
+            url: `https://github.com/kenblizzardcaron`,
+          },
+          {
+            name: `LinkedIn`,
+            url: `https://www.linkedin.com/in/kenblizzardcaron`,
+          },
+          // {
+          //   name: `Resume`,
+          //   url: `/pdf/KenBlizzard-Caron.pdf`,
+          // }
+        ],
+        formatString: 'MMM DD, YYYY',
         navigation: [
           {
             title: `Blog`,
@@ -30,20 +45,6 @@ module.exports = {
             title: `About`,
             slug: `/about`,
           },
-        ],
-        externalLinks: [
-          {
-            name: `GitHub`,
-            url: `https://github.com/kenblizzardcaron`,
-          },
-          {
-            name: `LinkedIn`,
-            url: `https://www.linkedin.com/in/kenblizzardcaron`,
-          }
-          // {
-          //   name: `Resume`,
-          //   url: `/pdf/KenBlizzard-Caron.pdf`,
-          // }
         ],
       },
     },
