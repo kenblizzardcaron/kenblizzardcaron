@@ -1,5 +1,5 @@
 require(`dotenv`).config()
-
+// const { typeNameFromDir } = require("gatsby-transformer-csv");
 const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE
 
 module.exports = {
@@ -64,6 +64,7 @@ module.exports = {
       },
     },
     `gatsby-plugin-sitemap`,
+
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -139,7 +140,20 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-gatsby-cloud`,
+    // `gatsby-plugin-gatsby-cloud`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `data`,
+        path: `${__dirname}/src/data/`,
+      },
+    },
+    {
+      resolve: `gatsby-transformer-csv`,
+      // options: {
+      //   typeName: typeNameFromDir,
+      // },
+    },
     shouldAnalyseBundle && {
       resolve: `gatsby-plugin-webpack-bundle-analyser-v2`,
       options: {
