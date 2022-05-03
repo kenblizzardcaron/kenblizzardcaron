@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { graphql, StaticQuery } from 'gatsby';
-// import { AxisOptions, Chart } from 'react-charts';
 import {
   AreaChart,
   Area,
@@ -15,9 +14,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { useColorMode } from 'theme-ui';
-// import { toS } from 'hh-mm-ss';
-import { format } from 'date-fns';
-// import { parse } from 'papaparse';
+import convertToDuration from '../utils/convertToDuration';
 
 type Roast = {
   index: number;
@@ -31,7 +28,7 @@ type Roast = {
   // fanSetting: number;
 };
 
-const degrees = '°F';
+const degrees = '(°F)';
 const SECONDS = 'Seconds';
 const ibtsTemp = `IBTS temp ${degrees}`;
 const beanProbeTemp = `Bean probe temp ${degrees}`;
@@ -51,17 +48,11 @@ const title = `May 1 2022 roast - ${origin}`;
 const RoastLog = (props) => {
   const [colorMode] = useColorMode();
 
-  // console.log('DATTA', data);
-
-  // const parsedData = parse(data, { delimiter: ',' });
-
-  // console.log('DATA', data);
-
   return (
     <StaticQuery
       query={graphql`
         query {
-          allRoastCsv {
+          allRoast20220501Csv {
             edges {
               node {
                 id
@@ -75,19 +66,14 @@ const RoastLog = (props) => {
           }
         }
       `}
-      render={({ allRoastCsv }) => {
-        console.log('COMPONENT staticquery data', allRoastCsv);
-        // console.log('test toS', toS('0:01'));
-
-        const parsedData = allRoastCsv.edges.map(({ node }) => {
+      render={({ allRoast20220501Csv: roast }) => {
+        const parsedData = roast.edges.map(({ node }) => {
           return {
             ...node,
             index: parseInt(node.Index),
             beanProbeTemp: parseInt(node.Bean_Probe_Temp),
           };
         });
-
-        // console.log('parsedData', parsedData);
 
         const data = parsedData.map(({ index, beanProbeTemp }) => {
           return {
@@ -96,47 +82,46 @@ const RoastLog = (props) => {
           };
         });
 
-        console.log('chart data', data);
-
         const isDark = colorMode === 'dark';
 
         return (
-          <>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart
-                data={data}
-                margin={{ top: 0, right: 0, left: 20, bottom: 20 }}
-                width={500}
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart
+              data={data}
+              margin={{ top: 0, right: 0, left: 20, bottom: 20 }}
+              width={500}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis
+                dataKey="index"
+                interval="preserveStartEnd"
+                minTickGap={16}
+                tickFormatter={(seconds) => convertToDuration(seconds)}
               >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="index">
-                  <Label
-                    fill={isDark ? 'white' : 'black'}
-                    value="Time elapsed (seconds)"
-                    offset={-8}
-                    position="insideBottom"
-                  />
-                </XAxis>
-                <YAxis>
-                  <Label
-                    fill={isDark ? 'white' : 'black'}
-                    angle={-90}
-                    value={beanProbeTemp}
-                    offset={0}
-                    position="insideBottomLeft"
-                  />
-                </YAxis>
-                {/* <Tooltip /> */}
-                {/* <Legend /> */}
-                <Line
-                  type="monotone"
-                  dataKey="beanProbeTemp"
-                  stroke="#8884d8"
-                  fill="#8884d8"
+                <Label
+                  fill={isDark ? 'white' : 'black'}
+                  value="Time (mm:ss)"
+                  offset={-8}
+                  position="insideBottom"
                 />
-              </LineChart>
-            </ResponsiveContainer>
-          </>
+              </XAxis>
+              <YAxis>
+                <Label
+                  fill={isDark ? 'white' : 'black'}
+                  angle={-90}
+                  value={beanProbeTemp}
+                  offset={0}
+                  position="insideBottomLeft"
+                />
+              </YAxis>
+              <Line
+                type="monotone"
+                dataKey="beanProbeTemp"
+                stroke="#8884d8"
+                fill="#8884d8"
+              />
+            </LineChart>
+          </ResponsiveContainer>
         );
       }}
     />
