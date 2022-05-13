@@ -140,7 +140,7 @@ module.exports = {
         ],
       },
     },
-    // `gatsby-plugin-gatsby-cloud`,
+    `gatsby-plugin-netlify`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
