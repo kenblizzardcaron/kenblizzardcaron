@@ -91,7 +91,6 @@ const May132022 = () => {
         );
 
         const isDark = colorMode === 'dark';
-        console.log({ data });
 
         return (
           <>
@@ -119,31 +118,33 @@ const May132022 = () => {
                   />
                 </XAxis>
                 <YAxis
+                  allowDataOverflow
                   domain={[100, 500]}
                   tick={{ fill: isDark ? 'white' : 'black' }}
                   yAxisId="left"
                 >
-                  <Label
+                  {/* <Label
                     angle={-90}
                     fill={isDark ? 'white' : 'black'}
                     offset={0}
                     position="insideBottomLeft"
                     value={ibtsTemp}
-                  />
+                  /> */}
                 </YAxis>
                 <YAxis
+                  allowDataOverflow
                   domain={[0, 'dataMax']}
                   orientation="right"
                   tick={{ fill: isDark ? 'white' : 'black' }}
                   yAxisId="right"
                 >
-                  <Label
+                  {/* <Label
                     angle={-90}
                     fill={isDark ? 'white' : 'black'}
-                    offset={56}
-                    position="insideBottomLeft"
-                    value={IBTS_ROR}
-                  />
+                     offset={30}
+                    position="end"
+                    value={BEAN_PROBE_ROR}
+                  /> */}
                 </YAxis>
                 <Line
                   dataKey="ibtsTemp"
@@ -173,19 +174,23 @@ const May132022 = () => {
                 <Legend
                   content={(props) => {
                     const { payload } = props;
-                    console.log('payload', payload);
 
                     return (
                       <ul>
                         {payload.map((entry, index) => (
-                          <li key={`item-${index}`} style={{ color: entry.color }}>
-                            {entry.value === 'ibtsTemp' ? ibtsTemp : BEAN_PROBE_ROR}
+                          <li
+                            key={`item-${index}`}
+                            style={{ color: entry.color }}
+                          >
+                            {entry.value === 'ibtsTemp'
+                              ? ibtsTemp
+                              : BEAN_PROBE_ROR}
                           </li>
                         ))}
                       </ul>
                     );
                   }}
-                  verticalAlign="top"
+                  verticalAlign="bottom"
                 />
               </LineChart>
             </ResponsiveContainer>
