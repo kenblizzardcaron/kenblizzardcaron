@@ -96,15 +96,24 @@ const May132022 = () => {
           <>
             {/* {new Date().toString()} */}
             <ResponsiveContainer width="100%" height={300}>
-              <LineChart
+              <AreaChart
                 data={data}
                 margin={{ top: 0, right: 0, left: 20, bottom: 20 }}
                 width={500}
               >
+                <defs>
+                  <linearGradient id="gradientRor" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor={ROR_LINE_COLOR} stopOpacity={1} />
+                    <stop offset="25%" stopColor={ROR_LINE_COLOR} stopOpacity={0.25} />
+                  </linearGradient>
+                  <linearGradient id="gradientTemp" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor={TEMP_LINE_COLOR} stopOpacity={1} />
+                    <stop offset="25%" stopColor={TEMP_LINE_COLOR} stopOpacity={0.25} />
+                  </linearGradient>
+                </defs>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis
                   dataKey="index"
-                  // interval="preserveStartEnd"
                   minTickGap={16}
                   tick={{ fill: isDark ? 'white' : 'black' }}
                   tickFormatter={(seconds) => convertToDuration(seconds)}
@@ -133,7 +142,7 @@ const May132022 = () => {
                 </YAxis>
                 <YAxis
                   allowDataOverflow
-                  domain={[0, 'dataMax']}
+                  domain={[0, 50]}
                   orientation="right"
                   tick={{ fill: isDark ? 'white' : 'black' }}
                   yAxisId="right"
@@ -146,37 +155,40 @@ const May132022 = () => {
                     value={BEAN_PROBE_ROR}
                   /> */}
                 </YAxis>
-                <Line
+                <Area
                   dataKey="ibtsTemp"
                   dot={false}
+                  fill="url(#gradientTemp)"
                   stroke={TEMP_LINE_COLOR}
                   type="monotone"
                   xAxisId="index"
                   yAxisId="left"
                 />
-                <Line
+                {/* <Area
                   dataKey="beanProbeRor"
                   dot={false}
+                  fill="url(#gradientRor)"
                   stroke={ROR_LINE_COLOR}
                   type="linear"
                   xAxisId="index"
                   yAxisId="right"
-                />
-                {/* <Line
+                /> */}
+                <Area
                   dataKey="ibtsRor"
                   dot={false}
+                  fill="url(#gradientRor)"
                   stroke={ROR_LINE_COLOR}
                   type="monotone"
                   xAxisId="index"
                   yAxisId="right"
-                /> */}
+                />
                 {/* <Tooltip /> */}
                 <Legend
                   content={(props) => {
                     const { payload } = props;
 
                     return (
-                      <ul>
+                      <ul style={{display: 'flex', justifyContent: 'space-around'}}>
                         {payload.map((entry, index) => (
                           <li
                             key={`item-${index}`}
@@ -184,7 +196,7 @@ const May132022 = () => {
                           >
                             {entry.value === 'ibtsTemp'
                               ? ibtsTemp
-                              : BEAN_PROBE_ROR}
+                              : IBTS_ROR}
                           </li>
                         ))}
                       </ul>
@@ -192,7 +204,7 @@ const May132022 = () => {
                   }}
                   verticalAlign="bottom"
                 />
-              </LineChart>
+              </AreaChart>
             </ResponsiveContainer>
           </>
         );
