@@ -2,11 +2,11 @@ import React from 'react';
 import { graphql, StaticQuery } from 'gatsby';
 import Chart from './Chart';
 
-const May132022 = () => (
+const May182022 = () => (
   <StaticQuery
     query={graphql`
       query {
-        allRoast20220513Csv {
+        allRoast20220518Csv {
           edges {
             node {
               id
@@ -19,7 +19,7 @@ const May132022 = () => (
         }
       }
     `}
-    render={({ allRoast20220513Csv: roast }) => {
+    render={({ allRoast20220518Csv: roast }) => {
       const parsedData = roast.edges.map(({ node }) => {
         return {
           ...node,
@@ -35,4 +35,4 @@ const May132022 = () => (
   />
 );
 
-export default May132022;
+export default May182022;
