@@ -1,0 +1,20 @@
+---
+title: Increasing the batch size
+date: 2022-05-14
+tags:
+  - Roast Log
+---
+
+import May132022 from 'components/May132022';
+
+Coffee roasting is all about experimentation. Variables are always changing whether you want them to are not. So when you change something, it's good to at least be intention about it. So far, I've stayed close to a 500g batch size. The bullet can handle up to a full kilo, but it can struggle with it, and is recommended only if you really know what you're doing or simply maxing out your production. I'm just a hobbyist so that's not a concern at all. Anyway I want to see what batch size will work well with our glass coffee containers. There's a little math at beans lose a good amount of weight during a roast. This batch lost 14% for instance. To keep a nice even number I tried a 600g batch size.
+
+Let's just say things didn't go as smoothly as I wanted. The batch went on for longer than I should have and I had trouble controlling the rate-of-rise (ROR). The roast approached 20 minutes, a good five minutes longer than average. Not terrible, but not generally not something to be proud of.
+
+On the data visualization side, I figured I'm overdue to make a biaxal line chart, as in show both the temperature and ROR over time.
+
+<May132022 />
+
+Now we're starting to get some interesting charts! I'm still having a little trouble with the Recharts API. It doesn't seem to want to respect the `domain` prop for the right `<YAxis>`, so it's hard to zoom in on that data. It seems I'm not alone as there's [40 open issues](https://github.com/recharts/recharts/issues?q=is%3Aissue+is%3Aopen+domain) mentioning `domain`. I'll just have to revisit this later I suppose.
+
+UPDATE: Slightly after publishing I realized I just needed to opt into the `allowDataOverflow` prop. Much better! Also I updated it to include some gradients just because.
