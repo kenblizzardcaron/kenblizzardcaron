@@ -24,7 +24,7 @@
     "gatsby-plugin-mdx": "3.16.0",
     "gatsby-plugin-netlify": "5.0.0",
     "gatsby-plugin-sitemap": "5.16.0",
-    "gatsby-plugin-webpack-bundle-analyser-v2": "1.1.27",
+    "gatsby-plugin-webpack-bundle-analyser-v2": "1.1.32",
     "gatsby-transformer-csv": "4.16.0",
     "react": "18.1.0",
     "react-dom": "18.1.0",
