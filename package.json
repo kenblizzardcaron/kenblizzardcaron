@@ -16,7 +16,7 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "@lekoarts/gatsby-theme-minimal-blog": "4.1.7",
+    "@lekoarts/gatsby-theme-minimal-blog": "6.2.3",
     "gatsby": "4.16.0",
     "gatsby-omni-font-loader": "2.0.0",
     "gatsby-plugin-feed": "4.16.0",
